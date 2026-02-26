@@ -53,9 +53,12 @@ class MitsubishiACConfigFlow(ConfigFlow, domain=DOMAIN):
                 if not groups:
                     errors["base"] = "no_groups"
                 else:
+                    groups_data = {
+                        g.group: g.name for g in groups
+                    }
                     return self.async_create_entry(
                         title=f"Mitsubishi AC ({host})",
-                        data={CONF_HOST: host, "groups": groups},
+                        data={CONF_HOST: host, "groups": groups_data},
                     )
 
         return self.async_show_form(

@@ -36,8 +36,8 @@ async def async_setup_entry(
     """Set up climate entities from a config entry."""
     coordinator: MitsubishiACCoordinator = entry.runtime_data
     entities = [
-        MitsubishiACClimate(coordinator, group)
-        for group in coordinator.groups
+        MitsubishiACClimate(coordinator, group, name)
+        for group, name in coordinator.groups.items()
     ]
     async_add_entities(entities)
 
@@ -61,13 +61,13 @@ class MitsubishiACClimate(
     _enable_turn_on_off_backwards_compat = False
 
     def __init__(
-        self, coordinator: MitsubishiACCoordinator, group: str
+        self, coordinator: MitsubishiACCoordinator, group: str, name: str
     ) -> None:
         """Initialize the climate entity."""
         super().__init__(coordinator)
         self._group = group
         self._attr_unique_id = f"{DOMAIN}_{group}"
-        self._attr_name = f"AC Group {group}"
+        self._attr_name = name if name else f"AC Group {group}"
 
     @property
     def _state(self) -> GroupState | None:

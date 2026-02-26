@@ -23,9 +23,12 @@ class MitsubishiACCoordinator(DataUpdateCoordinator[dict[str, GroupState]]):
         self,
         hass: HomeAssistant,
         controller: MitsubishiACController,
-        groups: list[str],
+        groups: dict[str, str],
     ) -> None:
-        """Initialize the coordinator."""
+        """Initialize the coordinator.
+
+        groups is a dict of group_number -> group_name.
+        """
         super().__init__(
             hass,
             _LOGGER,

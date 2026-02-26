@@ -11,6 +11,14 @@ from .const import ENDPOINT_PATH
 
 
 @dataclass
+class GroupInfo:
+    """Discovered group with its name."""
+
+    group: str
+    name: str
+
+
+@dataclass
 class GroupState:
     """State of a single AC group."""
 
@@ -120,7 +128,7 @@ class MitsubishiACController:
 
     async def async_discover_groups(
         self, session: aiohttp.ClientSession
-    ) -> list[str]:
+    ) -> list[GroupInfo]:
         """Discover available groups via MnetList."""
         xml = _build_xml(
             "getRequest",
@@ -128,9 +136,10 @@ class MitsubishiACController:
         )
         response = await self._post(session, xml)
         root = ET.fromstring(response)
-        groups: list[str] = []
-        for mnet in root.iter("Mnet"):
-            group = mnet.get("Group")
+        groups: list[GroupInfo] = []
+        for record in root.iter("MnetRecord"):
+            group = record.get("Group")
             if group is not None:
-                groups.append(group)
+                name = record.get("GroupNameWeb", "").strip()
+                groups.append(GroupInfo(group=group, name=name))
         return groups
