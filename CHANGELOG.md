@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.1 — 2026-02-26
+
+- Fix group discovery: parse MnetRecord elements instead of Mnet
+- Use GroupNameWeb from controller as entity names (e.g. "RECEÇAO", "LOUNGE")
+
 ## 1.0.0 — 2026-02-26
 
 - Initial release
