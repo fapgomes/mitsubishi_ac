@@ -38,3 +38,9 @@ Or manually:
 | Dry            | DRY        |
 | Fan only       | FAN        |
 | Heat/Cool      | AUTO       |
+
+## Support the project
+
+If this project is useful to you, consider buying me a coffee to help keep it going:
+
+[![Buy Me a Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-fapgomes-FFDD00?logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/fapgomes)
